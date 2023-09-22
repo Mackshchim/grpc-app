@@ -1,0 +1,38 @@
+syntax="proto3";
+
+package api;
+
+option go_package="pkg/api";
+
+service NumsStreamer {
+  rpc Authenticate(AuthenticationRequest) returns (AuthenticationResponse);
+
+  rpc StartStream(StartRequest) returns (stream IncreasingNumber);
+
+  rpc StopStream(StopRequest) returns (StopResponse);
+}
+
+message AuthenticationRequest {
+  string login = 1;
+  string password = 2;
+}
+
+message AuthenticationResponse {
+  string authorization = 1;
+}
+
+message StartRequest {
+  string authorization = 1;
+  int64 interval = 2;
+}
+
+message IncreasingNumber {
+  int64 number = 1;
+}
+
+message StopRequest {
+  string authorization = 1;
+}
+
+message StopResponse {
+}
